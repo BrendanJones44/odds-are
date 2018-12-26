@@ -31,8 +31,8 @@ export default class MainTabNavigator extends React.Component {
         <BottomNavigation.Action
           key="list"
           icon="list"
-          label="Past"
-          onPress={() => this.setState({ active: 'last' })}
+          label="list"
+          onPress={() => this.setState({ active: 'list' })}
         />
         <BottomNavigation.Action
           key="settings"
