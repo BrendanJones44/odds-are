@@ -3,16 +3,12 @@ import HomeScreen from '../screens/HomeScreen';
 
 import { BottomNavigation } from 'react-native-material-ui';
 import {
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  Button,
-  View,
+  View
 } from 'react-native';
 export default class MainTabNavigator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: ''}
+    this.state = { active: '' }
   }
   render() {
     return (

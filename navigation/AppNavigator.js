@@ -1,4 +1,4 @@
-import { createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import SignInScreen from './SignInScreen';
 import AuthLoadingScreen from './AuthLoadingScreen';
 import MainTabNavigator from './MainTabNavigator';

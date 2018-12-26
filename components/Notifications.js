@@ -26,7 +26,7 @@ export default class Notifications extends React.Component {
   render() {
     return (
       <Text>
-        {JSON.stringify(this.state.notifications)}
+        { JSON.stringify(this.state.notifications) }
       </Text>
     );
   }
