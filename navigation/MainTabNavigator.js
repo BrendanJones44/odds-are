@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeScreen from '../screens/HomeScreen';
-
+import { Button, AsyncStorage } from 'react-native';
 import { BottomNavigation } from 'react-native-material-ui';
 import {
   View
@@ -10,9 +10,14 @@ export default class MainTabNavigator extends React.Component {
     super(props);
     this.state = { active: '' }
   }
+  signout = async () => {
+    await AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove);
+    this.props.navigation.navigate('Auth');
+  };
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <Button title="Log Out" onPress={this.signout} />
         <HomeScreen />
       <View>
       <BottomNavigation active={this.state.active} hidden={false} >

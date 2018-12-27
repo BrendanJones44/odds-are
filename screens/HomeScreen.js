@@ -10,7 +10,6 @@ import Notifications from '../components/Notifications';
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: '', password: '', token: '', authorized: false }
   }
 
   static navigationOptions = {
@@ -18,11 +17,10 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    const notifications = this.state.authorized ? <Notifications token={this.state.token} /> : null;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          { notifications }
+          <Notifications />
         </ScrollView>
       </View>
     );
