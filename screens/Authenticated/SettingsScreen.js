@@ -1,31 +1,24 @@
 import React from 'react';
 import {
-  ScrollView,
-  StyleSheet,
   View,
+  Text,
+  StyleSheet,
 } from 'react-native';
 
-import Notifications from '../components/Notifications';
-
-export default class HomeScreen extends React.Component {
+export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  static navigationOptions = {
-    header: null,
-  };
-
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <Notifications />
-        </ScrollView>
+      <View style={styles.contentContainer}>
+        <Text>Settings Screen</Text>
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
