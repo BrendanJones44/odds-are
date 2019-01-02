@@ -3,10 +3,11 @@ import {
   AsyncStorage,
   ScrollView,
   StyleSheet,
-  TextInput,
-  Button,
+  Text,
   View,
 } from 'react-native';
+import { Card, Button } from 'react-native-material-ui';
+import { TextField } from 'react-native-material-textfield';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -47,22 +48,32 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.getStartedContainer}>
-            <TextInput
-              style={{ height: 40, width: 120, borderColor: 'gray', borderWidth: 1 }}
+            <Text style={styles.welcomeText}>Welcome to Odds Are!</Text>
+            <Card style={styles.contentCard}>
+            <TextField
+              label='Email'
+              inputContainerStyle={styles.inputStyle}
+              fontSize={20}
               onChangeText={(userName) => this.setState({ userName })}
               value={this.state.userName}
             />
-            <TextInput
+            <TextField
+              label='Password'
+              fontSize={20}
               secureTextEntry={true}
-              style={{ height: 40, width: 120, borderColor: 'gray', borderWidth: 1 }}
+              inputContainerStyle={styles.inputStyle}
               onChangeText={(password) => this.setState({ password })}
               value={this.state.password} />
-            <Button onPress={this.onPressSignIn} title="Sign In" />
+            <Button 
+              raised
+              primary
+              onPress={this.onPressSignIn}
+              text="Sign In" />
+            </Card>
           </View>
-        </ScrollView>
-
+        </View>
       </View>
     );
   }
@@ -73,12 +84,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    flexDirection: 'column',
+  },
+  welcomeText: {
+    fontSize: 24,
+    alignSelf: 'center',
+    padding: 40
   },
   contentContainer: {
     paddingTop: 30,
   },
+  inputStyle: {
+    marginBottom: 20,
+  },
   getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
+    alignItems: 'stretch'
   },
 });
