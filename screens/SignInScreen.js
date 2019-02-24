@@ -56,6 +56,7 @@ export default class HomeScreen extends React.Component {
               label='Email'
               inputContainerStyle={styles.inputStyle}
               fontSize={20}
+              autoCapitalize='none'
               onChangeText={(userName) => this.setState({ userName })}
               value={this.state.userName}
             />
