@@ -1,7 +1,7 @@
 import React from 'react';
 import { material } from 'react-native-typography';
 import { TextField } from 'react-native-material-textfield';
-import { Button, Card } from 'react-native-material-ui';
+import { Button } from 'react-native-material-ui';
 import { Dropdown } from 'react-native-material-dropdown';
 
 import {
@@ -29,45 +29,48 @@ export default class NewScreen extends React.Component {
       value: 'Peter Howard',
     }];
     return (
-      
       <View style={styles.contentContainer}>
         <View style={styles.titleWrapper}>
-          <Text style={material.display2}>Send an OddsAre</Text>
+          <Text style={[material.display1, {textAlign: "center"}]}>Send an OddsAre</Text>
+        </View>
+        <View style={styles.spaceUnderTitle}/>
+        <View style={styles.dropDownWrapper}>
           <Dropdown
             label='Send to...'
             data={data}
           />
+        </View>
+        <View style={styles.challengeTextWrapper}>
           <TextField
             label='Odds Are they...'
             value={this.state.challengeText}
+            style={styles.challengeText}
             onChangeText={ (challengeText) => this.setState({ challengeText }) }
           />
-          <Button raised primary text="Send Challenge" />
         </View>
+        <Button raised primary text="Send Challenge" />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  challengeText: {
+    flex: 2,
   },
-  title: {
-    flex: 1
+  challengeTextWrapper: {
+    flex: 2,
+  },
+  dropDownWrapper: {
+    flex: 1,
   },
   titleWrapper: {
-    marginTop: 40,
+    marginTop: 20,
     alignSelf: 'stretch',
+    flex: 1,
   },
   contentContainer: {
-    flex: 1,
-    alignItems: 'center',
+    flex: 2,
     padding: 30,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
   },
 });

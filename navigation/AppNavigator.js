@@ -11,7 +11,7 @@ import SignInScreen from '../screens/SignInScreen';
 
 // Authenticated Screens
 import HistoryScreen from '../screens/Authenticated/HistoryScreen';
-import NotificationScreen from '../screens/Authenticated/NotificationScreen';
+import NotificationScreen from '../screens/Authenticated/Notifications/NotificationScreen';
 import NewScreen from '../screens/Authenticated/NewScreen';
 import SettingsScreen from '../screens/Authenticated/SettingsScreen';
 

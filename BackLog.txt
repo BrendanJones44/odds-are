@@ -1,0 +1,19 @@
+Odds Are To Do List:
+
+
+The app needs to:
+  - View notifications more neatly when logged in 
+  - Need to replicate views for: 
+    - Viewing a Challenge Request
+      - Viewing the Challenge Request as the respondent
+      - Viewing the Challenge Request as expired/not the actor
+    - Viewing Challenge Response
+      - Viewing as the recipient:
+        - Before you respond
+        - Once you respond
+      - Viewing as the sender:
+        - Before they respond
+
+Strategy moving forward:
+  - If the Odds Are is expired / in a different states than a request, just route to OddsAre view
+            
