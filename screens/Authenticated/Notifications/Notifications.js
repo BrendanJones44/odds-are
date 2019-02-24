@@ -56,19 +56,20 @@ export default class Notifications extends React.Component {
 
   render() {
     return (
-      <View style={styles.contentContainer}>
-        <ScrollView contentContainerStyle={{
+      <ScrollView contentContainerStyle={{
             flexGrow: 1,
             justifyContent: 'space-between'
         }}>
-          <Notification />
-          <Notification />
-          <Notification />
-          <Notification />
-          <Notification />
-          <Notification />
-        </ScrollView>
-      </View>
+        <View style={styles.contentContainer}>
+          
+            <Notification />
+            <Notification />
+            <Notification />
+            <Notification />
+            <Notification />
+            <Notification />
+        </View>
+      </ScrollView>
     );
   }
 }
