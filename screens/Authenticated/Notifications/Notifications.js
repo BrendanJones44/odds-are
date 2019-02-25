@@ -77,6 +77,7 @@ export default class Notifications extends React.Component {
           action={notification.action}
           actor={notification.actor}
           key={notification.id}
+          id={notification.id}
           time={notification.created_at}
           type={notification.notifiable_type} />
       )

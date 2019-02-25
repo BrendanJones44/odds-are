@@ -16,7 +16,7 @@ class Notification extends React.Component {
   }
   handlePress = () => {
     this.props.navigation.navigate(this.props.type, {
-      id: this.props.key
+      id: this.props.id
     });
   }
   render() {
