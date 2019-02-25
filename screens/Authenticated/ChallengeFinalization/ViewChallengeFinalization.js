@@ -17,7 +17,62 @@ export default class ViewChallengeResponse extends React.Component {
     guess: 1,
     oddsOutOf: 30,
     status: "nobody", //nobody loser winner
-    completionStatus: "userMarked"
+    completionStatus: "userMarked",
+    initiator: false
+  }
+
+  initiatorText = () => {
+    if(this.state.initiator) {
+      return (
+        <Text style={[material.button, { paddingBottom: 5 }]}>You sent: </Text>
+      )
+    }else {
+      return (
+        <Text style={[material.button, { paddingBottom: 5, textAlign: "right" }]}>Sean Fontaine sent: </Text>
+      )
+    }
+  }
+
+  responseText = () => {
+    if (this.state.initiator) {
+      return (
+        <Text style={[material.button, { textAlign: "right", paddingBottom: 5 }]}>Sean fontaine:</Text>
+      )
+    } else {
+      return (
+        <Text style={[material.button, { paddingBottom: 5 }]}>You: </Text>
+      )
+    }
+  }
+
+  guessedText = () => {
+    if (this.state.initiator) {
+      return (
+        <Text style={[material.headline, { textAlign: "right" }]}>Picked: 10</Text>
+      )
+    } else {
+      return (
+        <Text style={[material.headline]}>Picked: 10</Text>
+      )
+    }
+  }
+
+  pickedText = () => {
+    if (this.state.initiator) {
+      return (
+        <View style={styles.yourGuessWrapper}>
+          <Text style={[material.headline, { paddingBottom: 5 }]}>You guessed:</Text>
+          <Text style={[material.headline, { textAlign: "left" }]}>20</Text>
+        </View>
+      )
+    } else {
+      return (
+        <View style={styles.yourGuessWrapper}>
+          <Text style={[material.headline, { paddingBottom: 5, textAlign: "right" }]}>Sean guessed:</Text>
+          <Text style={[material.headline, { textAlign: "right" }]}>20</Text>
+        </View>
+      )
+    }
   }
 
   bottomDisplay = () => {
@@ -31,13 +86,13 @@ export default class ViewChallengeResponse extends React.Component {
           )
         case "bothMarked":
           return (
-            < View style={styles.buttonWrapper} >
+            <View style={styles.buttonWrapper} >
               <Text style={[material.headline, { textAlign: "center" }]}>Dare completed</Text>
             </View >
           )
         default:
           return (
-            < View style={styles.buttonWrapper} >
+            <View style={styles.buttonWrapper} >
               <Button raised primary text="Mark Completed" />
             </View >
           )
@@ -89,26 +144,23 @@ export default class ViewChallengeResponse extends React.Component {
     const challengeFinalizationId = navigation.getParam('id', 'NO-ID');
 
 
+
     return (
       <View style={styles.contentContainer}>
         <View style={styles.titleWrapper}>
           <Text style={[material.display1, { textAlign: "center" }]}>{this.titleText()}</Text>
         </View>
         <View style={this.bodyStyle()}>
-          <Text style={[material.button, { paddingBottom: 5 }]}>You sent: </Text>
+          {this.initiatorText()}
           <View style={styles.challengeTextWrapper}>
             <Text style={[material.headline, { textAlign: "center" }]}>Odds are you eat some pizza</Text>
           </View>
           <View style={styles.challengeOutOfWrapper}>
-            <Text style={[material.button, { textAlign: "right", paddingBottom: 5 }]}>Sean fontaine:</Text>
+            {this.responseText()}
             <Text style={[material.headline, { textAlign: "center" }]}>Set the odds out of: {this.state.oddsOutOf}</Text>
-            <Text style={[material.headline, { textAlign: "right" }]}>Picked: 10</Text>
-
+            {this.guessedText()}
           </View>
-          <View style={styles.yourGuessWrapper}>
-            <Text style={[material.headline, { paddingBottom: 5 }]}>You guessed:</Text>
-            <Text style={[material.headline, { textAlign: "left" }]}>20</Text>
-          </View>
+          {this.pickedText()}
           {this.bottomDisplay()}
         </View>
       </View>
