@@ -9,11 +9,14 @@ import {
 import { material } from 'react-native-typography';
 
 export default class Notification extends React.Component {
+  notificationText = () => {
+    return this.props.actor + " " + this.props.action
+  }
   render() {
     return(
       <View style={styles.notification}>
         <Text style={[material.headline, {textAlign: "center", color: "#1e88e5", padding: 5}]}>
-          Alex Walsh sent you an odds are
+          {this.notificationText()}
         </Text>
         <Text style={[material.caption, {textAlign: "center"}]}>
           (<TimeAgo time={"2018-12-08T18:43:00.475Z"} />)

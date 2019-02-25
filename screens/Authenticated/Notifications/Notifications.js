@@ -11,7 +11,29 @@ import {
 export default class Notifications extends React.Component {
   constructor(props){
     super(props);
-    this.state = { notifications: [] }
+    this.state = { notifications: [
+      {
+        "id": 1,
+        "actor": "Jake Hartwell",
+        "action": "sent you an odds are",
+        "notifiable_id": 372,
+        "notifiable_type": "ChallengeRequest"
+      },
+      {
+        "id": 2,
+        "actor": "Sean Fontaine",
+        "action": "responded to your odds are",
+        "notifiable_id": 373,
+        "notifiable_type": "ChallengeResponse"
+      },
+      {
+        "id": 3,
+        "actor": "Alex Walsh",
+        "action": "completed an odds are",
+        "notifiable_id": 324,
+        "notifiable_type": "ChallengeFinalization"
+      }
+    ] }
   }
 
   componentDidMount = async () => {
@@ -27,47 +49,25 @@ export default class Notifications extends React.Component {
     // }).then((responseJson) => {
     //   this.setState({notifications: JSON.parse(responseJson._bodyInit)});
     // });
-    this.setState({
-      notifications: [
-        {
-          "id": 1,
-          "actor": "Jake Hartwell",
-          "action": "sent you an odds are",
-          "notifiable_id": 372,
-          "notifiable_type": "ChallengeRequest"
-        },
-        {
-          "id": 2,
-          "actor": "Sean Fontaine",
-          "action": "responded to your odds are",
-          "notifiable_id": 373,
-          "notifiable_type": "ChallengeResponse"
-        },
-        {
-          "id": 3,
-          "actor": "Alex Walsh",
-          "action": "completed an odds are",
-          "notifiable_id": 324,
-          "notifiable_type": "ChallengeFinalization"
-        }
-      ]
-    })
   }
 
   render() {
+    var notifications = this.state.notifications.map(function(notification) {
+      return (
+        <Notification
+          action={notification.action}
+          actor={notification.actor}
+          />
+      )
+    })
+
     return (
       <ScrollView contentContainerStyle={{
             flexGrow: 1,
             justifyContent: 'space-between'
         }}>
         <View style={styles.contentContainer}>
-          
-            <Notification />
-            <Notification />
-            <Notification />
-            <Notification />
-            <Notification />
-            <Notification />
+          {notifications}
         </View>
       </ScrollView>
     );
