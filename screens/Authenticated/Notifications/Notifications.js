@@ -17,39 +17,58 @@ export default class Notifications extends React.Component {
         "actor": "Jake Hartwell",
         "action": "sent you an odds are",
         "notifiable_id": 372,
-        "notifiable_type": "ChallengeRequest"
+        "notifiable_type": "ChallengeRequest",
+        "created_at": "2019-02-24T06:43:00.475Z"
       },
       {
         "id": 2,
         "actor": "Sean Fontaine",
         "action": "responded to your odds are",
         "notifiable_id": 373,
-        "notifiable_type": "ChallengeResponse"
+        "notifiable_type": "ChallengeResponse",
+        "created_at": "2019-02-22T18:43:00.475Z"
       },
       {
         "id": 3,
         "actor": "Alex Walsh",
         "action": "completed an odds are",
         "notifiable_id": 324,
-        "notifiable_type": "ChallengeFinalization"
+        "notifiable_type": "ChallengeFinalization",
+        "created_at": "2018-12-08T18:43:00.475Z"
       }
     ] }
+
+
+    // Example notification response= {
+    //   "acted_upon_at": null,
+    //   "action": "sent you an odds are",
+    //   "actor_id": 367,
+    //   "clicked_at": null,
+    //   "created_at": "2018-12-08T18:43:00.475Z",
+    //   "dismiss_type": null,
+    //   "id": 1091,
+    //   "notifiable_id": 372,
+    //   "notifiable_type": "ChallengeRequest",
+    //   "read_at": null,
+    //   "recipient_id": 363,
+    //   "updated_at": "2018-12-08T18:43:00.475Z"
+    // },
   }
 
-  componentDidMount = async () => {
-    // const token = await AsyncStorage.getItem('userToken');
-    // return fetch("https://what-are-the-odds-are.herokuapp.com/notifications/new", {
-    //   method: 'GET',
-    //   withCredentials: true,
-    //   credentials: 'include',
-    //   headers: {
-    //     'Authorization': token,
-    //     'Content-Type': 'application/json'
-    //   }
-    // }).then((responseJson) => {
-    //   this.setState({notifications: JSON.parse(responseJson._bodyInit)});
-    // });
-  }
+  // componentDidMount = async () => {
+  //   const token = await AsyncStorage.getItem('userToken');
+  //   return fetch("https://what-are-the-odds-are.herokuapp.com/notifications/new", {
+  //     method: 'GET',
+  //     withCredentials: true,
+  //     credentials: 'include',
+  //     headers: {
+  //       'Authorization': token,
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }).then((responseJson) => {
+  //     //this.setState({notifications: JSON.parse(responseJson._bodyInit)});
+  //   });
+  // }
 
   render() {
     var notifications = this.state.notifications.map(function(notification) {
@@ -57,14 +76,16 @@ export default class Notifications extends React.Component {
         <Notification
           action={notification.action}
           actor={notification.actor}
-          />
+          key={notification.id}
+          time={notification.created_at}
+          type={notification.notifiable_type} />
       )
     })
 
     return (
       <ScrollView contentContainerStyle={{
-            flexGrow: 1,
-            justifyContent: 'space-between'
+          flexGrow: 1,
+          justifyContent: 'space-between'
         }}>
         <View style={styles.contentContainer}>
           {notifications}
