@@ -10,24 +10,26 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SignInScreen from '../screens/SignInScreen';
 
 // Authenticated Screens
-import HistoryScreen from '../screens/Authenticated/HistoryScreen';
+import SearchScreen from '../screens/Authenticated/SearchScreen';
 import NotificationScreen from '../screens/Authenticated/Notifications/NotificationScreen';
 import NewScreen from '../screens/Authenticated/NewScreen';
 import SettingsScreen from '../screens/Authenticated/SettingsScreen';
 //  Odds Are Types
 import ViewChallengeRequest from '../screens/Authenticated/ChallengeRequest/ViewChallengeRequest';
 import ViewChallengeResponse from '../screens/Authenticated/ChallengeResponse/ViewChallengeResponse';
+import ViewChallengeFinalization from '../screens/Authenticated/ChallengeFinalization/ViewChallengeFinalization';
 
 import React from 'react';
 import MainTabNavigator from './BottomTabNavigator';
 
 const authorizedRouteConfig = {
   Notifications: NotificationScreen,
-  History: HistoryScreen,
+  Search: SearchScreen,
   Settings: SettingsScreen,
   New: NewScreen,
   ChallengeRequest: ViewChallengeRequest,
-  ChallengeResponse: ViewChallengeResponse
+  ChallengeResponse: ViewChallengeResponse,
+  ChallengeFinalization: ViewChallengeFinalization
 }
 
 const bottomTabNavigatorConfig = {

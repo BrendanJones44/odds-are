@@ -9,9 +9,9 @@ export default class MainTabNavigator extends React.Component {
     super(props);
     this.state = { active: '' }
   }
-  onHistoryPress = () => {
-    this.props.navigation.navigate('History');
-    this.setState({ active: 'History' });
+  onSearchPress = () => {
+    this.props.navigation.navigate('Search');
+    this.setState({ active: 'Search' });
   }
   onNotificationsPress = () => {
     this.props.navigation.navigate('Notifications');
@@ -41,10 +41,10 @@ export default class MainTabNavigator extends React.Component {
             onPress={this.onNewPress}
           />
           <BottomNavigation.Action
-            key="History"
-            icon="history"
-            label="History"
-            onPress={this.onHistoryPress}
+            key="Search"
+            icon="group"
+            label="Search"
+            onPress={this.onSearchPress}
           />
           <BottomNavigation.Action
             key="Settings"
