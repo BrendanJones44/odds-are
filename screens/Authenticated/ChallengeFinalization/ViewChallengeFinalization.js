@@ -15,19 +15,86 @@ export default class ViewChallengeResponse extends React.Component {
 
   state = {
     guess: 1,
-    oddsOutOf: 30
+    oddsOutOf: 30,
+    status: "nobody", //nobody loser winner
+    completionStatus: "userMarked"
   }
 
+  bottomDisplay = () => {
+    if(this.state.status != "nobody"){
+      switch (this.state.completionStatus) {
+        case "userMarked":
+          return (
+            <View style={styles.buttonWrapper}>
+              <Text style={[material.button, { textAlign: "center" }]}>Waiting on Sean Fontaine to mark completed</Text>
+            </View>
+          )
+        case "bothMarked":
+          return (
+            < View style={styles.buttonWrapper} >
+              <Text style={[material.headline, { textAlign: "center" }]}>Dare completed</Text>
+            </View >
+          )
+        default:
+          return (
+            < View style={styles.buttonWrapper} >
+              <Button raised primary text="Mark Completed" />
+            </View >
+          )
+      }
+    }
+  }
+
+  titleText = () => {
+    switch(this.state.status) {
+      case "winner":
+        return "You won!";
+      case "loser":
+        return "You lost!"
+      default:
+        return "Nobody won!"
+    }
+  }
+
+  bodyStyle = () => {
+    switch (this.state.status) {
+      case "winner":
+        return {
+          flex: 4,
+          backgroundColor: '#00E676',
+          borderRadius: 10,
+          padding: 20,
+          margin: 10,
+        }
+      case "loser":
+        return {
+          flex: 4,
+          backgroundColor: '#EF5350',
+          borderRadius: 10,
+          padding: 20,
+          margin: 10,
+        }
+      default:
+        return {
+          flex: 4,
+          backgroundColor: 'lightgrey',
+          borderRadius: 10,
+          padding: 20,
+          margin: 10,
+        }
+    }
+  }
   render() {
     const { navigation } = this.props;
     const challengeFinalizationId = navigation.getParam('id', 'NO-ID');
 
+
     return (
       <View style={styles.contentContainer}>
         <View style={styles.titleWrapper}>
-          <Text style={[material.display1, { textAlign: "center" }]}>You Lost!</Text>
+          <Text style={[material.display1, { textAlign: "center" }]}>{this.titleText()}</Text>
         </View>
-        <View style={styles.challengeBox}>
+        <View style={this.bodyStyle()}>
           <Text style={[material.button, { paddingBottom: 5 }]}>You sent: </Text>
           <View style={styles.challengeTextWrapper}>
             <Text style={[material.headline, { textAlign: "center" }]}>Odds are you eat some pizza</Text>
@@ -42,13 +109,7 @@ export default class ViewChallengeResponse extends React.Component {
             <Text style={[material.headline, { paddingBottom: 5 }]}>You guessed:</Text>
             <Text style={[material.headline, { textAlign: "left" }]}>20</Text>
           </View>
-          <View style={styles.buttonWrapper}>
-            {/* <Text style={[material.headline, { textAlign: "center" }]}>Dare completed</Text> */}
-            {/* <Text style={[material.button, { textAlign: "center" }]}>Waiting on Sean Fontaine to mark completed</Text> */}
-            <Button raised primary text="Mark Completed" />
-          </View>
-          
-
+          {this.bottomDisplay()}
         </View>
       </View>
     )
@@ -63,7 +124,21 @@ const styles = StyleSheet.create({
   challengeText: {
     flex: 1,
   },
-  challengeBox: {
+  challengeBoxLoser: {
+    flex: 4,
+    backgroundColor: '#EF5350',
+    borderRadius: 10,
+    padding: 20,
+    margin: 10,
+  },
+  challengeBoxWinner: {
+    flex: 4,
+    backgroundColor: '#EF5350',
+    borderRadius: 10,
+    padding: 20,
+    margin: 10,
+  },
+  challengeBoxNobody: {
     flex: 4,
     backgroundColor: '#EF5350',
     borderRadius: 10,
