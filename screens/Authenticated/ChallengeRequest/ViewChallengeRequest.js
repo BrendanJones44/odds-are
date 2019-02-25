@@ -9,7 +9,7 @@ import {
   Slider
 } from 'react-native'
 
-export default class RespondTo extends React.Component {
+export default class ViewChallengeRequest extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,14 +24,14 @@ export default class RespondTo extends React.Component {
   render() {
     const { navigation } = this.props;
     const challengeRequestId = navigation.getParam('id', 'NO-ID');
-    
 
     return (
       <View style={styles.contentContainer}>
         <View style={styles.titleWrapper}>
-          <Text style={[material.display1, { textAlign: "center" }]}>Alex Walsh sent you an OddsAre</Text>
+          <Text style={[material.display1, { textAlign: "center" }]}>Odds Are Request</Text>
         </View>
         <View style={styles.challengeBox}>
+          <Text style={[material.button, { paddingBottom: 5}]}>Alex Walsh: </Text>
           <View style={styles.challengeTextWrapper}>
             <Text style={[material.headline, { textAlign: "center"}]}>Odds are you eat some pizza</Text>
           </View>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 2,
   },
   challengeBox: {
-    flex: 2,
+    flex: 4,
     backgroundColor: 'lightgrey',
     borderRadius: 10,
     padding: 20,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    flex: 2,
+    flex: 4,
     padding: 30,
   },
 });

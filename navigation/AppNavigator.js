@@ -14,7 +14,9 @@ import HistoryScreen from '../screens/Authenticated/HistoryScreen';
 import NotificationScreen from '../screens/Authenticated/Notifications/NotificationScreen';
 import NewScreen from '../screens/Authenticated/NewScreen';
 import SettingsScreen from '../screens/Authenticated/SettingsScreen';
+//  Odds Are Types
 import ViewChallengeRequest from '../screens/Authenticated/ChallengeRequest/ViewChallengeRequest';
+import ViewChallengeResponse from '../screens/Authenticated/ChallengeResponse/ViewChallengeResponse';
 
 import React from 'react';
 import MainTabNavigator from './BottomTabNavigator';
@@ -24,7 +26,8 @@ const authorizedRouteConfig = {
   History: HistoryScreen,
   Settings: SettingsScreen,
   New: NewScreen,
-  ChallengeRequest: ViewChallengeRequest
+  ChallengeRequest: ViewChallengeRequest,
+  ChallengeResponse: ViewChallengeResponse
 }
 
 const bottomTabNavigatorConfig = {
