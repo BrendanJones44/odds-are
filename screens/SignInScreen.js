@@ -12,33 +12,38 @@ import { TextField } from 'react-native-material-textfield';
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userName: '', password: '', token: '', authorized: false }
+    this.state = { userName: '', password: '', authorized: false }
   }
 
   onPressSignIn = () => {
-    return fetch('https://what-are-the-odds-are.herokuapp.com/users/sign_in', {
+    return fetch('http://192.168.1.16:3000/api/v1/auth/sign_in', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: {
-          email: this.state.userName,
-          password: this.state.password
-        }
+        email: this.state.userName,
+        password: this.state.password
       }),
     }).then((response) => response.headers)
-      .then((responseJson) => {
+    .then((responseJson) => {
+      console.log(responseJson["map"]["access-token"]);
         this.setState({
-          token: responseJson["map"]["authorization"],
+          token: responseJson["map"]["access-token"],
+          client: responseJson["map"]["client"],
+          uid: responseJson["map"]["uid"],
+          expiry: responseJson["map"]["expiry"],
           authorized: true
         }, function () {
 
         });
       })
       .then(async () => {
-        await AsyncStorage.setItem('userToken', this.state.token);
+        await AsyncStorage.setItem('userCredentials', JSON.stringify(this.state));
+
+        /* Go to the App Navigation stack */
+        
         this.props.navigation.navigate('App');
       }).catch((error) => {
         console.error(error);
