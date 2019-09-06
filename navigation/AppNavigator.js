@@ -20,7 +20,7 @@ import ViewChallengeResponse from '../screens/Authenticated/ChallengeResponse/Vi
 import ViewChallengeFinalization from '../screens/Authenticated/ChallengeFinalization/ViewChallengeFinalization';
 
 import React from 'react';
-import MainTabNavigator from './BottomTabNavigator';
+import BottomTabNavigator from './BottomTabNavigator';
 
 const authorizedRouteConfig = {
   Notifications: NotificationScreen,
@@ -35,7 +35,7 @@ const authorizedRouteConfig = {
 const bottomTabNavigatorConfig = {
   initialRouteName: 'Notifications',
   tabBarComponent: props => 
-    <MainTabNavigator {...props} />,
+    <BottomTabNavigator {...props} />,
 }
 
 const AppStack = createBottomTabNavigator(

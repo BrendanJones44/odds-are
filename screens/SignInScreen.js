@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+
 import {
   AsyncStorage,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -9,48 +9,58 @@ import {
 import { Card, Button } from 'react-native-material-ui';
 import { TextField } from 'react-native-material-textfield';
 
-export default class HomeScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { userName: '', password: '', authorized: false }
-  }
+import FriendsContext from '../storage/friends-context';
+import NotificationsContext from '../storage/notifications-context';
+import AuthenticationContext from '../storage/authentication-context';
 
-  onPressSignIn = () => {
-    return fetch('http://192.168.1.16:3000/api/v1/auth/sign_in', {
+import UserContext from '../storage/user-context';
+
+const authenticationHost = 'https://e6be52db.ngrok.io';
+const authenticationEndpoint = authenticationHost + '/api/users/authenticate_and_metadata'
+
+
+const SignInScreen = props => {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const { setAuthentication } = useContext(AuthenticationContext);
+  const { setNotifications } = useContext(NotificationsContext);
+  const { setFriends } = useContext(FriendsContext);
+  const { setUserId } = useContext(UserContext);
+
+  processResult = async (result) => {
+    if (result.body.message === "authenticated") {
+      await AsyncStorage.setItem('userCredentials', JSON.stringify(result.auth_token))
+      setAuthentication(result.auth_token)
+      setNotifications(result.body.data.notifications)
+      setFriends(result.body.data.friends)
+      setUserId(result.body.data.user_id)
+    }
+    return true;
+  }
+  onPressSignIn = async() => {
+    fetch(authenticationEndpoint, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: this.state.userName,
-        password: this.state.password
+        email: userName,
+        password: password
       }),
-    }).then((response) => response.headers)
-    .then((responseJson) => {
-      console.log(responseJson["map"]["access-token"]);
-        this.setState({
-          token: responseJson["map"]["access-token"],
-          client: responseJson["map"]["client"],
-          uid: responseJson["map"]["uid"],
-          expiry: responseJson["map"]["expiry"],
-          authorized: true
-        }, function () {
 
-        });
-      })
-      .then(async () => {
-        await AsyncStorage.setItem('userCredentials', JSON.stringify(this.state));
-
-        /* Go to the App Navigation stack */
-        
-        this.props.navigation.navigate('App');
-      }).catch((error) => {
-        console.error(error);
-      });
+    })
+      .then(response => response.json().then(body => ({
+        auth_token: response.headers.get("auth_token"),
+        body
+      })))
+    .then(result =>
+      processResult(result)
+    ).then(success =>
+      success ? props.navigation.navigate('App') : console.log("uh oh")
+    )
   }
 
-  render() {
     return (
       <View style={styles.container}>
         <View style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -62,27 +72,26 @@ export default class HomeScreen extends React.Component {
               inputContainerStyle={styles.inputStyle}
               fontSize={20}
               autoCapitalize='none'
-              onChangeText={(userName) => this.setState({ userName })}
-              value={this.state.userName}
+              onChangeText={(userName) => setUserName(userName)}
+              value={userName}
             />
             <TextField
               label='Password'
               fontSize={20}
               secureTextEntry={true}
               inputContainerStyle={styles.inputStyle}
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password} />
+              onChangeText={(password) => setPassword(password)}
+              value={password} />
             <Button 
               raised
               primary
-              onPress={this.onPressSignIn}
+              onPress={onPressSignIn}
               text="Sign In" />
             </Card>
           </View>
         </View>
       </View>
     );
-  }
 }
 
 
@@ -107,3 +116,5 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
 });
+
+export default SignInScreen;
