@@ -7,7 +7,6 @@ const SET_USER_ID = 'SET_USER_ID';
 export const actions = { SET_AUTHENTICATION, SET_NOTIFICATIONS, SET_FRIENDS, SET_USER_ID };
 
 const setUserId = (state, userId) => {
-  console.log("inside setuserId action", userId)
   return {
     ...state,
     userId: userId
