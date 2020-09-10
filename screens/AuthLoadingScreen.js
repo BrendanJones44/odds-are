@@ -84,7 +84,8 @@ function AuthLoadingScreen(props) {
       setAuthentication(stubbedAuthentication);
       props.navigation.navigate('App');
     } else {
-      props.navigation.navigate('Auth');
+      props.navigation.navigate('App');
+      //props.navigation.navigate('Auth');
     }
   };
 

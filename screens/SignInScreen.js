@@ -15,7 +15,7 @@ import AuthenticationContext from '../storage/authentication-context';
 
 import UserContext from '../storage/user-context';
 
-const authenticationHost = 'https://e6be52db.ngrok.io';
+const authenticationHost = 'http://d3980cb1.ngrok.io';
 const authenticationEndpoint = authenticationHost + '/api/users/authenticate_and_metadata'
 
 

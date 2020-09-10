@@ -5,6 +5,13 @@ import {
   createBottomTabNavigator 
 } from 'react-navigation';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
+import { Button, View } from 'react-native';
+
+
+import { createDrawerNavigator } from 'react-navigation-drawer';
+
 // Unauthenticated Screens
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import SignInScreen from '../screens/SignInScreen';
@@ -23,32 +30,32 @@ import React from 'react';
 import BottomTabNavigator from './BottomTabNavigator';
 
 const authorizedRouteConfig = {
-  Notifications: NotificationScreen,
-  Search: SearchScreen,
-  Settings: SettingsScreen,
   New: NewScreen,
-  ChallengeRequest: ViewChallengeRequest,
-  ChallengeResponse: ViewChallengeResponse,
-  ChallengeFinalization: ViewChallengeFinalization
 }
 
-const bottomTabNavigatorConfig = {
-  initialRouteName: 'Notifications',
-  tabBarComponent: props => 
-    <BottomTabNavigator {...props} />,
+const Home = () => {
+  <h1>Home Screen</h1>
 }
 
-const AppStack = createBottomTabNavigator(
-  authorizedRouteConfig, 
-  bottomTabNavigatorConfig
-);
-
+const DrawerNavigatorConfig = {
+  Home: {
+    navigationOptions: {
+      drawerIcon: ({ tintColor }) => (
+        <Icon name="home" style={{ color: tintColor }} />
+      ),
+      drawerLabel: "Home"
+    },
+    screen: Home
+  },
+}
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+
+const DrawerNavigator = createDrawerNavigator(authorizedRouteConfig, DrawerNavigatorConfig);
 
 const RootStack =  createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: AppStack,
+    App: DrawerNavigator,
     Auth: AuthStack,
   },
   {
@@ -57,4 +64,60 @@ const RootStack =  createSwitchNavigator(
 );
 
 const App = createAppContainer(RootStack);
-export default App;
+//export default App;
+
+class MyHomeScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Home',
+    drawerIcon: ({ tintColor }) => (
+      <Icon name="md-log-out" style={{ color: tintColor }} />
+    ),
+  };
+
+  render() {
+    console.log("rendered")
+    return (
+      <View style={{ backgroundColor: "blue", width: "100%" }}>
+
+      <Button
+        onPress={() => this.props.navigation.navigate('Notifications')}
+        title="Go to notifications"
+      />
+      </View>
+    );
+  }
+}
+
+class MyNotificationsScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Notifications',
+    drawerIcon: ({ tintColor }) => (
+      <Icon name="md-log-out" style={{ color: tintColor }} />
+    ),
+  };
+
+  render() {
+    console.log("rendered")
+    return (
+      <View style={{backgroundColor: "red"}}>
+        <Button
+          onPress={() => this.props.navigation.goBack()}
+          title="Go back home"
+        />
+      </View>
+    );
+  }
+}
+
+const MyDrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: MyHomeScreen,
+  },
+  Notifications: {
+    screen: MyNotificationsScreen,
+  },
+});
+
+const MyApp = createAppContainer(MyDrawerNavigator);
+
+export default MyApp;
